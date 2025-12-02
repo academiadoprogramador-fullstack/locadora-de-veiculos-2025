@@ -8,18 +8,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.22" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.22">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\core\aplicacao\LocadoraDeVeiculos.Aplicacao.csproj" />
     <ProjectReference Include="..\core\dominio\LocadoraDeVeiculos.Dominio.csproj" />
+    <ProjectReference Include="..\infra\jwt\LocadoraDeVeiculos.Infraestrutura.Jwt.csproj" />
     <ProjectReference Include="..\infra\orm\LocadoraDeVeiculos.Infraestrutura.Orm.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>

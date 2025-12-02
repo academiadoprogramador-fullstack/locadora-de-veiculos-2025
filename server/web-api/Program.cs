@@ -1,5 +1,6 @@
 using LocadoraDeVeiculos.Aplicacao;
 using LocadoraDeVeiculos.Infraestrutura.Orm;
+using LocadoraDeVeiculos.WebApi.Config.Http;
 using LocadoraDeVeiculos.WebApi.Config.Orm;
 using LocadoraDeVeiculos.WebApi.Config.Swagger;
 using System.Text.Json.Serialization;
@@ -15,8 +16,9 @@ public class Program
         // Add services to the container.
         builder.Services.AddCamadaInfraestruturaOrm(builder.Configuration);
         builder.Services.AddCamadaAplicacao(builder.Configuration);
-
         builder.Services.AddSwaggerConfig();
+
+        builder.Services.ConfigureOptions<CorsConfig>().AddCors();
 
         builder.Services
             .AddControllers()

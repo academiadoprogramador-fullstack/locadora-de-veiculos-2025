@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>41c2c1bd-122a-457c-bcc6-08592de71cbf</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\core\aplicacao\LocadoraDeVeiculos.Aplicacao.csproj" />
+    <ProjectReference Include="..\core\dominio\LocadoraDeVeiculos.Dominio.csproj" />
+    <ProjectReference Include="..\infra\orm\LocadoraDeVeiculos.Infraestrutura.Orm.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+
+</Project>

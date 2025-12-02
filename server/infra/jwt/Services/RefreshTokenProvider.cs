@@ -1,4 +1,5 @@
-﻿using LocadoraDeVeiculos.Infraestrutura.Orm.Compartilhado;
+﻿using LocadoraDeVeiculos.Dominio.ModuloAutenticacao;
+using LocadoraDeVeiculos.Infraestrutura.Orm.Compartilhado;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

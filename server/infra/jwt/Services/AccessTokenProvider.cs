@@ -1,4 +1,5 @@
-﻿using LocadoraDeVeiculos.Infraestrutura.Orm.Compartilhado;
+﻿using LocadoraDeVeiculos.Dominio.ModuloAutenticacao;
+using LocadoraDeVeiculos.Infraestrutura.Orm.Compartilhado;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -13,6 +14,7 @@ public class AccessTokenProvider
 {
     private readonly AppDbContext dbContext;
     private readonly UserManager<Usuario> userManager;
+
     private readonly string audienciaValida;
     private readonly string chaveAssinaturaJwt;
 
@@ -36,40 +38,40 @@ public class AccessTokenProvider
     {
         var roles = await userManager.GetRolesAsync(usuario);
 
-        var cargoDoUsuarioStr = roles.FirstOrDefault();
+        var cargoDoUsuarioStr = roles.FirstOrDefault(); // Empresa / Funcionario
 
         if (cargoDoUsuarioStr is null)
             throw new Exception("Não foi possível recuperar os dados de permissão do usuário.");
 
-        Guid empresaId;
+        Guid empresaId = usuario.Id;
 
-        if (cargoDoUsuarioStr == CargoUsuario.Funcionario.ToString())
-        {
-            // Se for funcionário, busca a empresa vinculada
-            var funcionario = await dbContext.Set<Funcionario>()
-                .AsNoTracking()
-                .IgnoreQueryFilters()
-                .FirstOrDefaultAsync(f => f.UsuarioId == usuario.Id && !f.Excluido);
+        //if (cargoDoUsuarioStr == CargoUsuario.Funcionario.ToString())
+        //{
+        //    // Se for funcionário, busca a empresa vinculada
+        //    var funcionario = await dbContext.Set<Funcionario>()
+        //        .AsNoTracking()
+        //        .IgnoreQueryFilters()
+        //        .FirstOrDefaultAsync(f => f.UsuarioId == usuario.Id && !f.Excluido);
 
-            if (funcionario is null)
-                throw new Exception("Funcionário não encontrado ou inativo.");
+        //    if (funcionario is null)
+        //        throw new Exception("Funcionário não encontrado ou inativo.");
 
-            empresaId = funcionario.EmpresaId;
-        }
-        else
-        {
-            empresaId = usuario.Id;
-        }
+        //    empresaId = funcionario.EmpresaId;
+        //}
+        //else
+        //{
+        //    empresaId = usuario.Id;
+        //}
 
         var claims = new List<Claim>
-    {
-        new Claim(JwtRegisteredClaimNames.Sub, usuario.Id.ToString()),
-        new Claim(JwtRegisteredClaimNames.UniqueName, usuario.UserName!),
-        new Claim(JwtRegisteredClaimNames.Email, usuario.Email!),
-        new Claim(JwtRegisteredClaimNames.Jti, usuario.AccessTokenVersionId.ToString()),
-        new Claim(ClaimTypes.Role, cargoDoUsuarioStr),
-        new Claim("EmpresaId", empresaId.ToString())
-    };
+        {
+            new Claim(JwtRegisteredClaimNames.Sub, usuario.Id.ToString()),
+            new Claim(JwtRegisteredClaimNames.UniqueName, usuario.UserName!),
+            new Claim(JwtRegisteredClaimNames.Email, usuario.Email!),
+            new Claim(JwtRegisteredClaimNames.Jti, usuario.AccessTokenVersionId.ToString()),
+            new Claim(ClaimTypes.Role, cargoDoUsuarioStr),
+            new Claim("EmpresaId", empresaId.ToString())
+        };
 
         var expiracaoJwt = DateTime.UtcNow.AddMinutes(15);
 

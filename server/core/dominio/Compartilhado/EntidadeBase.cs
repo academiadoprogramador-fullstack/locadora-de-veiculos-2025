@@ -1,4 +1,6 @@
-﻿namespace LocadoraDeVeiculos.Dominio.Compartilhado;
+﻿using LocadoraDeVeiculos.Dominio.ModuloAutenticacao;
+
+namespace LocadoraDeVeiculos.Dominio.Compartilhado;
 
 public abstract class EntidadeBase<T>
 {
@@ -7,8 +9,8 @@ public abstract class EntidadeBase<T>
     public DateTimeOffset? ExcluidoEmUtc { get; set; }
     public bool Excluido { get; set; }
 
-    //public Guid EmpresaId { get; set; }
-    //public Usuario? Empresa { get; set; }
+    public Guid EmpresaId { get; set; }
+    public Usuario? Empresa { get; set; }
 
     public abstract void AtualizarRegistro(T registroEditado);
 

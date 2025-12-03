@@ -4,7 +4,15 @@ import {
 } from '@angular/core';
 import { provideRouter, Routes } from '@angular/router';
 
-const routes: Routes = [];
+import { provideNotifications } from './shared/notificacao/notificacao.provider';
+
+const routes: Routes = [
+  { path: '', redirectTo: 'inicio', pathMatch: 'full' },
+  {
+    path: 'inicio',
+    loadComponent: () => import('./inicio/inicio').then((c) => c.Inicio),
+  },
+];
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,5 +22,7 @@ export const appConfig: ApplicationConfig = {
 
     { provide: LOCALE_ID, useValue: 'pt-BR' },
     { provide: DEFAULT_CURRENCY_CODE, useValue: 'BRL' },
+
+    provideNotifications(),
   ],
 };

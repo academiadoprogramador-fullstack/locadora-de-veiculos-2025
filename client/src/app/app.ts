@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [],
+  imports: [RouterOutlet],
   template: `
     <main class="container-fluid py-3">
-      <h1 class="text-4xl">Hello, World!</h1>
+      <router-outlet></router-outlet>
     </main>
   `,
 })

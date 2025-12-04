@@ -1,4 +1,5 @@
 ﻿using LocadoraDeVeiculos.Infraestrutura.Orm.Compartilhado;
+using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloFuncionario;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +12,8 @@ public static class DependencyInjection
         this IServiceCollection services, IConfiguration configuration)
     {
         services.AddEntityFrameworkConfig(configuration);
+
+        services.AddScoped<RepositorioFuncionarioEmOrm>();
 
         return services;
     }

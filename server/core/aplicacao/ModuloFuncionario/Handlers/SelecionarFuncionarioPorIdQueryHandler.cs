@@ -21,6 +21,7 @@ public class SelecionarFuncionarioPorIdQueryHandler(RepositorioFuncionarioEmOrm 
         SelecionarFuncionarioPorIdResult result = new(
             registroEncontrado.Id,
             registroEncontrado.NomeCompleto,
+            registroEncontrado.Cpf,
             registroEncontrado.Email,
             registroEncontrado.Salario,
             registroEncontrado.AdmissaoEmUtc

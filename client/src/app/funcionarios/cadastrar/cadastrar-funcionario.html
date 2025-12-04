@@ -1,0 +1,134 @@
+<section class="mx-auto max-w-4xl px-4 py-6">
+  <div>
+    <h2 class="text-2xl font-semibold">Cadastro de Funcionário</h2>
+    <hr class="my-4 border-muted/30" />
+
+    <mat-card class="p-4 rounded-2xl shadow-sm">
+      <form [formGroup]="funcionarioForm" (ngSubmit)="cadastrar()">
+        <mat-card-header>
+          <mat-card-title class="text-lg font-medium">
+            Preencha o formulário de cadastro
+          </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content class="mt-6 space-y-4">
+          <mat-form-field class="w-full">
+            <mat-label>Nome Completo</mat-label>
+            <input matInput formControlName="nomeCompleto" type="text" autocomplete="name" />
+
+            @if (nomeCompleto?.errors?.['required']) {
+              <mat-error>O nome completo é obrigatório.</mat-error>
+            }
+            @if (nomeCompleto?.errors?.['minlength']) {
+              <mat-error>O nome completo deve conter no mínimo 3 caracteres.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>CPF</mat-label>
+            <input
+              matInput
+              formControlName="cpf"
+              type="text"
+              autocomplete="name"
+              mask="000.000.000-00"
+              [dropSpecialCharacters]="false"
+            />
+
+            @if (cpf?.errors?.['required']) {
+              <mat-error>O CPF é obrigatório.</mat-error>
+            }
+            @if (cpf?.errors?.['pattern']) {
+              <mat-error>O CPF deve conter seguir o padrão 000.000.000-00.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="w-full mt-2">
+            <mat-label>Email</mat-label>
+            <input
+              matInput
+              formControlName="email"
+              type="email"
+              autocomplete="email"
+              mask="A*@A*.SSS"
+              [dropSpecialCharacters]="false"
+            />
+
+            @if (email?.errors?.['required']) {
+              <mat-error>O email é obrigatório.</mat-error>
+            }
+            @if (email?.errors?.['email']) {
+              <mat-error>O email deve seguir o padrão nome&#64;provedor.com.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="w-full mt-2">
+            <mat-label>Senha</mat-label>
+            <input matInput formControlName="senha" type="password" autocomplete="new-password" />
+
+            @if (senha?.errors?.['required']) {
+              <mat-error>A senha é obrigatória.</mat-error>
+            }
+            @if (senha?.errors?.['minlength']) {
+              <mat-error>A senha deve conter no mínimo 6 caracteres.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="w-full mt-2">
+            <mat-label>Confirmação de Senha</mat-label>
+            <input
+              formControlName="confirmarSenha"
+              matInput
+              type="password"
+              autocomplete="new-password"
+            />
+
+            @if (confirmarSenha?.errors?.['required']) {
+              <mat-error>A confirmação de senha é obrigatória.</mat-error>
+            }
+          </mat-form-field>
+
+          @if (funcionarioForm.hasError('compararConfirmacaoSenha')) {
+            <mat-error class="mt-3">As senhas devem ser iguais.</mat-error>
+          }
+
+          <mat-form-field class="w-full mt-2">
+            <mat-label>Salário</mat-label>
+            <input matInput formControlName="salario" type="number" />
+
+            @if (salario?.errors?.['required']) {
+              <mat-error>O salário é obrigatório.</mat-error>
+            }
+            @if (salario?.errors?.['min']) {
+              <mat-error>O salário deve conter no mínimo um valor positivo.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" [floatLabel]="'always'" class="w-full">
+            <mat-label>Data de Admissão</mat-label>
+            <input
+              formControlName="admissaoEmUtc"
+              matInput
+              type="datetime"
+              mask="00/00/0000"
+              [dropSpecialCharacters]="false"
+            />
+
+            @if (admissaoEmUtc?.hasError('required')) {
+              <mat-error>A data de admissão do funcionário é obrigatória.</mat-error>
+            }
+          </mat-form-field>
+        </mat-card-content>
+
+        <mat-card-actions align="end" class="flex items-center justify-end gap-3 pt-4">
+          <a mat-stroked-button routerLink="/funcionarios" class="px-4"> Voltar </a>
+
+          <button type="submit" [disabled]="funcionarioForm.invalid" mat-flat-button class="px-6">
+            <mat-icon class="!text-base mr-1">check</mat-icon>
+            Concluir
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+  </div>
+</section>

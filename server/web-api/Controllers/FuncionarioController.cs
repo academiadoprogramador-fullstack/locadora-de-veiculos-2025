@@ -108,6 +108,7 @@ public sealed class FuncionarioController(IMediator mediator) : MainController
             SelecionarFuncionarioPorIdResponse response = new(
                 valor.Id,
                 valor.NomeCompleto,
+                valor.Cpf,
                 valor.Email,
                 valor.Salario,
                 valor.AdmissaoEmUtc

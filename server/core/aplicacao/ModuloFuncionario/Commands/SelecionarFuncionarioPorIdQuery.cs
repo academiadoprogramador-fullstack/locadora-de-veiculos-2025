@@ -8,6 +8,7 @@ public record SelecionarFuncionarioPorIdQuery(Guid Id) : IRequest<Result<Selecio
 public record SelecionarFuncionarioPorIdResult(
     Guid Id,
     string NomeCompleto,
+    string Cpf,
     string Email,
     decimal Salario,
     DateTimeOffset AdmissaoEmUtc

@@ -48,6 +48,12 @@ const routes: Routes = [
     canMatch: [usuarioAutenticadoGuard],
   },
   {
+    path: 'grupos-veiculos',
+    loadChildren: () =>
+      import('./grupos-veiculos/grupo-veiculos.routes').then((r) => r.grupoVeiculosRoutes),
+    canMatch: [usuarioAutenticadoGuard],
+  },
+  {
     path: 'inicio',
     loadComponent: () => import('./inicio/inicio').then((c) => c.Inicio),
     canMatch: [usuarioAutenticadoGuard],

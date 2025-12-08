@@ -40,7 +40,10 @@ export class ShellComponent {
       shareReplay(),
     );
 
-  public itensNavbar = [{ titulo: 'Início', icone: 'home', link: '/inicio' }];
+  public itensNavbar = [
+    { titulo: 'Início', icone: 'home', link: '/inicio' },
+    { titulo: 'Grupos de Veículos', icone: 'label', link: '/grupos-veiculos' },
+  ];
 
   @Input({ required: true }) usuarioAutenticado?: UsuarioAutenticadoModel;
   @Output() logoutRequisitado = new EventEmitter<void>();

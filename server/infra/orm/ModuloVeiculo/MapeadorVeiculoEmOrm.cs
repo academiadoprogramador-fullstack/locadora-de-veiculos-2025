@@ -19,7 +19,7 @@ public sealed class MapeadorVeiculoEmOrm : IEntityTypeConfiguration<Veiculo>
                .IsRequired();
 
         builder.Property(c => c.Ano)
-               .HasColumnType("nvarchar(100)")
+               .HasColumnType("int")
                .IsRequired();
 
         builder.Property(c => c.Imagem)

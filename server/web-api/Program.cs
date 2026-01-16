@@ -6,6 +6,7 @@ using LocadoraDeVeiculos.WebApi.Config.Orm;
 using LocadoraDeVeiculos.WebApi.Config.Swagger;
 using System.Text.Json.Serialization;
 using LocadoraDeVeiculos.WebApi.Config.Identity;
+using LocadoraDeVeiculos.Infraestrutura.S3;
 
 namespace LocadoraDeVeiculos.WebApi;
 
@@ -18,6 +19,7 @@ public class Program
         // Add services to the container.
         builder.Services
             .AddCamadaInfraestruturaOrm(builder.Configuration)
+            .AddCamadaInfraestruturaS3(builder.Configuration)
             .AddCamadaInfraestruturaJwt();
 
         builder.Services.AddCamadaAplicacao(builder.Configuration);

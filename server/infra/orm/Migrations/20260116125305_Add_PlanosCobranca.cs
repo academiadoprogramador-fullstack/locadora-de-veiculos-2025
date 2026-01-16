@@ -1,26 +1,28 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
 {
     /// <inheritdoc />
-    public partial class Add_Funcionarios : Migration
+    public partial class Add_PlanosCobranca : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Funcionarios",
+                name: "PlanosCobranca",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    NomeCompleto = table.Column<string>(type: "nvarchar(100)", nullable: false),
-                    Cpf = table.Column<string>(type: "varchar(14)", nullable: false),
-                    Email = table.Column<string>(type: "varchar(100)", nullable: false),
-                    Salario = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    AdmissaoEmUtc = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    UsuarioId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    GrupoVeiculosId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PrecoDiarioPlanoDiario = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PrecoQuilometroPlanoDiario = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    QuilometrosDisponiveisPlanoControlado = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PrecoDiarioPlanoControlado = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PrecoQuilometroExtrapoladoPlanoControlado = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PrecoDiarioPlanoLivre = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     CriadoEmUtc = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     ExcluidoEmUtc = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     Excluido = table.Column<bool>(type: "bit", nullable: false),
@@ -28,38 +30,37 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Funcionarios", x => x.Id);
+                    table.PrimaryKey("PK_PlanosCobranca", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Funcionarios_AspNetUsers_EmpresaId",
+                        name: "FK_PlanosCobranca_AspNetUsers_EmpresaId",
                         column: x => x.EmpresaId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Funcionarios_AspNetUsers_UsuarioId",
-                        column: x => x.UsuarioId,
-                        principalTable: "AspNetUsers",
+                        name: "FK_PlanosCobranca_GruposVeiculos_GrupoVeiculosId",
+                        column: x => x.GrupoVeiculosId,
+                        principalTable: "GruposVeiculos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Funcionarios_EmpresaId_Excluido",
-                table: "Funcionarios",
+                name: "IX_PlanosCobranca_EmpresaId_Excluido",
+                table: "PlanosCobranca",
                 columns: new[] { "EmpresaId", "Excluido" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Funcionarios_UsuarioId",
-                table: "Funcionarios",
-                column: "UsuarioId",
-                unique: true);
+                name: "IX_PlanosCobranca_GrupoVeiculosId",
+                table: "PlanosCobranca",
+                column: "GrupoVeiculosId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Funcionarios");
+                name: "PlanosCobranca");
         }
     }
 }

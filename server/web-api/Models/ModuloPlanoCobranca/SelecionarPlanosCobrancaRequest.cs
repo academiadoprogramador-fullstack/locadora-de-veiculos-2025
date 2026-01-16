@@ -1,0 +1,5 @@
+﻿using LocadoraDeVeiculos.Aplicacao.ModuloPlanoCobranca.Commands;
+
+namespace LocadoraDeVeiculos.WebApi.Models.ModuloPlanoCobranca;
+
+public record SelecionarPlanosCobrancaResponse(IReadOnlyList<SelecionarPlanosCobrancaDto> Registros);

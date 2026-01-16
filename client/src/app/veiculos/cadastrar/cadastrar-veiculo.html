@@ -1,0 +1,136 @@
+<section class="mx-auto max-w-4xl px-4 py-6">
+  <div>
+    <h2 class="text-2xl font-semibold">Cadastro de Veículo</h2>
+    <hr class="my-4 border-muted/30" />
+
+    <mat-card class="p-4 rounded-2xl shadow-sm">
+      <form [formGroup]="veiculoForm" (ngSubmit)="cadastrar()">
+        <mat-card-header>
+          <mat-card-title class="text-lg font-medium"> Dados do Veículo </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <mat-form-field appearance="fill" class="col-span-1 md:col-span-2 w-full">
+            <mat-label>Grupo de Veículos</mat-label>
+            <mat-select formControlName="grupoVeiculosId">
+              @for (grupo of gruposVeiculos$ | async; track grupo.id) {
+                <mat-option [value]="grupo.id">{{ grupo.nome }}</mat-option>
+              }
+            </mat-select>
+            @if (grupoVeiculosId?.hasError('required')) {
+              <mat-error>O grupo de veículos é obrigatório.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>Marca</mat-label>
+            <input matInput formControlName="marca" placeholder="Ex: Fiat" />
+            @if (veiculoForm.get('marca')?.hasError('required')) {
+              <mat-error>A marca é obrigatória.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>Modelo</mat-label>
+            <input matInput formControlName="modelo" placeholder="Ex: Uno Mille" />
+            @if (veiculoForm.get('modelo')?.hasError('required')) {
+              <mat-error>O modelo é obrigatório.</mat-error>
+            }
+            @if (veiculoForm.get('modelo')?.hasError('minlength')) {
+              <mat-error>Mínimo de 3 caracteres.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>Ano</mat-label>
+            <input matInput formControlName="ano" type="text" mask="0000" placeholder="Ex: 2024" />
+            @if (veiculoForm.get('ano')?.hasError('required')) {
+              <mat-error>O ano é obrigatório.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>Tipo de Combustível</mat-label>
+            <mat-select formControlName="tipoCombustivel">
+              @for (tipoCombustivel of tipoCombustivelEnum; track $index) {
+                <mat-option [value]="tipoCombustivel">{{ tipoCombustivel }} </mat-option>
+              }
+            </mat-select>
+            @if (veiculoForm.get('tipoCombustivel')?.hasError('required')) {
+              <mat-error>O combustível é obrigatório.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>Capacidade do Tanque</mat-label>
+            <input
+              matInput
+              formControlName="capacidadeTanque"
+              type="text"
+              mask="separator.0"
+              suffix=" L"
+              placeholder="Ex: 45"
+            />
+            @if (veiculoForm.get('capacidadeTanque')?.hasError('required')) {
+              <mat-error>A capacidade do tanque é obrigatória.</mat-error>
+            }
+          </mat-form-field>
+
+          <div class="col-span-1 md:col-span-2 w-full">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Imagem do Veículo</label>
+
+            <input
+              #fileInput
+              type="file"
+              (change)="onFileSelected($event)"
+              accept="image/jpeg, image/gif, image/png, image/webp"
+              class="hidden"
+            />
+
+            @if (!imagemPreview()) {
+              <div
+                class="border-2 border-dashed border-gray-300 rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors"
+                (click)="fileInput.click()"
+              >
+                <mat-icon class="!text-4xl !w-10 !h-10 text-gray-400 mb-2">cloud_upload</mat-icon>
+                <p class="text-sm text-gray-600 font-medium">Clique para fazer upload</p>
+              </div>
+            } @else {
+              <div
+                class="relative w-full h-64 rounded-lg overflow-hidden border border-gray-200 shadow-sm group"
+              >
+                <img
+                  [src]="imagemPreview()"
+                  alt="Preview do veículo"
+                  class="w-full h-full object-cover"
+                />
+
+                <div
+                  class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4"
+                >
+                  <button mat-flat-button color="warn" type="button" (click)="removerImagem()">
+                    <mat-icon>delete</mat-icon> Remover
+                  </button>
+                </div>
+              </div>
+            }
+
+            @if (
+              veiculoForm.get('imagem')?.hasError('required') && veiculoForm.get('imagem')?.touched
+            ) {
+              <mat-error class="text-xs mt-2 ml-1"> A imagem do veículo é obrigatória. </mat-error>
+            }
+          </div>
+        </mat-card-content>
+
+        <mat-card-actions align="end" class="flex items-center justify-end gap-3 pt-4 px-4 pb-2">
+          <a mat-stroked-button routerLink="/veiculos" class="px-4"> Voltar </a>
+          <button type="submit" [disabled]="veiculoForm.invalid" mat-flat-button class="px-6">
+            <mat-icon class="!text-base mr-1">check</mat-icon>
+            Concluir
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+  </div>
+</section>

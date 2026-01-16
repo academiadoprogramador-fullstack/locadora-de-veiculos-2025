@@ -54,6 +54,12 @@ const routes: Routes = [
     canMatch: [usuarioAutenticadoGuard],
   },
   {
+    path: 'planos-cobranca',
+    loadChildren: () =>
+      import('./planos-cobranca/plano-cobranca.routes').then((r) => r.planoCobrancaRoutes),
+    canMatch: [usuarioAutenticadoGuard],
+  },
+  {
     path: 'inicio',
     loadComponent: () => import('./inicio/inicio').then((c) => c.Inicio),
     canMatch: [usuarioAutenticadoGuard],

@@ -1,0 +1,150 @@
+<section class="mx-auto max-w-4xl px-4 py-6">
+  <div>
+    <h2 class="text-2xl font-semibold">Cadastro de Plano de Cobrança</h2>
+    <hr class="my-4 border-muted/30" />
+
+    <mat-card class="p-4 rounded-2xl shadow-sm">
+      <form [formGroup]="planoCobrancaForm" (ngSubmit)="cadastrar()">
+        <mat-card-header>
+          <mat-card-title class="text-lg font-medium">
+            Preencha o formulário de cadastro
+          </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content class="mt-6 space-y-4">
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Grupo de Veículos</mat-label>
+            <mat-select formControlName="grupoVeiculosId">
+              @for (grupoVeiculos of gruposVeiculos$ | async; track grupoVeiculos.id) {
+                <mat-option [value]="grupoVeiculos.id">{{ grupoVeiculos.nome }}</mat-option>
+              }
+            </mat-select>
+            @if (grupoVeiculosId?.hasError('required')) {
+              <mat-error>O grupo de veículos é obrigatório.</mat-error>
+            }
+          </mat-form-field>
+
+          <h4 class="text-xl font-semibold">Plano Diário</h4>
+          <div class="border-1 rounded my-3 pt-5 px-3" formGroupName="precosPlanoDiario">
+            <mat-form-field class="w-full">
+              <mat-label>Preço Diário</mat-label>
+              <input
+                matInput
+                formControlName="precoDiarioPlanoDiario"
+                type="text"
+                mask="separator.2"
+                thousandSeparator="."
+                decimalMarker=","
+                prefix="R$ "
+              />
+              @if (precosPlanoDiario?.get('precoDiarioPlanoDiario')?.hasError('required')) {
+                <mat-error>O preço diário é obrigatório.</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field class="w-full">
+              <mat-label>Preço p/ Quilômetro</mat-label>
+              <input
+                matInput
+                formControlName="precoQuilometroPlanoDiario"
+                type="text"
+                mask="separator.2"
+                thousandSeparator="."
+                decimalMarker=","
+                prefix="R$ "
+              />
+              @if (precosPlanoDiario?.get('precoQuilometroPlanoDiario')?.hasError('required')) {
+                <mat-error>O preço por quilômetro é obrigatório.</mat-error>
+              }
+            </mat-form-field>
+          </div>
+
+          <h4 class="text-xl font-semibold">Plano Controlado</h4>
+          <div class="border-1 rounded my-3 pt-5 px-3" formGroupName="precosPlanoControlado">
+            <mat-form-field class="w-full">
+              <mat-label>Preço Diário</mat-label>
+              <input
+                matInput
+                formControlName="precoDiarioPlanoControlado"
+                type="text"
+                mask="separator.2"
+                thousandSeparator="."
+                decimalMarker=","
+                prefix="R$ "
+              />
+              @if (precosPlanoControlado?.get('precoDiarioPlanoControlado')?.hasError('required')) {
+                <mat-error>O preço diário é obrigatório.</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field class="w-full">
+              <mat-label>Quilômetros Disponíveis</mat-label>
+              <input
+                matInput
+                formControlName="quilometrosDisponiveisPlanoControlado"
+                type="text"
+                mask="separator.0"
+                thousandSeparator="."
+                suffix=" Km"
+              />
+              @if (
+                precosPlanoControlado
+                  ?.get('quilometrosDisponiveisPlanoControlado')
+                  ?.hasError('required')
+              ) {
+                <mat-error>Os quilômetros disponíveis são obrigatórios.</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field class="w-full">
+              <mat-label>Preço p/ Quilômetro Extrapolado</mat-label>
+              <input
+                matInput
+                formControlName="precoQuilometroExtrapoladoPlanoControlado"
+                type="text"
+                mask="separator.2"
+                thousandSeparator="."
+                decimalMarker=","
+                prefix="R$ "
+              />
+              @if (
+                precosPlanoControlado
+                  ?.get('precoQuilometroExtrapoladoPlanoControlado')
+                  ?.hasError('required')
+              ) {
+                <mat-error>O preço por km extrapolado é obrigatório.</mat-error>
+              }
+            </mat-form-field>
+          </div>
+
+          <h4 class="text-xl font-semibold">Plano Livre</h4>
+          <div class="border-1 rounded my-3 pt-5 px-3" formGroupName="precosPlanoLivre">
+            <mat-form-field class="w-full">
+              <mat-label>Preço Diário</mat-label>
+              <input
+                matInput
+                formControlName="precoDiarioPlanoLivre"
+                type="text"
+                mask="separator.2"
+                thousandSeparator="."
+                decimalMarker=","
+                prefix="R$ "
+              />
+              @if (precosPlanoLivre?.get('precoDiarioPlanoLivre')?.hasError('required')) {
+                <mat-error>O preço diário é obrigatório.</mat-error>
+              }
+            </mat-form-field>
+          </div>
+        </mat-card-content>
+
+        <mat-card-actions align="end" class="flex items-center justify-end gap-3 pt-4">
+          <a mat-stroked-button routerLink="/planos-cobranca" class="px-4"> Voltar </a>
+          <button type="submit" [disabled]="planoCobrancaForm.invalid" mat-flat-button class="px-6">
+            <mat-icon class="!text-base mr-1">check</mat-icon>
+            Concluir
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+  </div>
+</section>

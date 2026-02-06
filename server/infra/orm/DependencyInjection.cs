@@ -1,4 +1,5 @@
 ﻿using LocadoraDeVeiculos.Infraestrutura.Orm.Compartilhado;
+using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloCliente;
 using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloFuncionario;
 using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloGrupoVeiculos;
 using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloPlanoCobranca;
@@ -20,6 +21,7 @@ public static class DependencyInjection
         services.AddScoped<RepositorioGrupoVeiculosEmOrm>();
         services.AddScoped<RepositorioPlanoCobrancaEmOrm>();
         services.AddScoped<RepositorioVeiculoEmOrm>();
+        services.AddScoped<RepositorioClienteEmOrm>();
 
         return services;
     }

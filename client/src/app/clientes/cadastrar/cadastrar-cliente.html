@@ -1,0 +1,126 @@
+<section class="mx-auto max-w-4xl px-4 py-6">
+  <div>
+    <h2 class="text-2xl font-semibold">Cadastro de Cliente</h2>
+    <hr class="my-4 border-muted/30" />
+
+    <mat-card class="p-4 rounded-2xl shadow-sm">
+      <form [formGroup]="clienteForm" (ngSubmit)="cadastrar()">
+        <mat-card-header>
+          <mat-card-title class="text-lg font-medium"> Dados do Cliente </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <mat-form-field class="w-full md:col-span-2">
+            <mat-label>Nome</mat-label>
+            <input matInput formControlName="nome" placeholder="Ex: João da Silva" />
+            @if (nome?.hasError('required')) {
+              <mat-error>O nome é obrigatório.</mat-error>
+            }
+            @if (nome?.hasError('minlength')) {
+              <mat-error>Mínimo de 3 caracteres.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>E-mail</mat-label>
+            <input matInput formControlName="email" placeholder="Ex: joao@email.com" />
+            @if (email?.hasError('required')) {
+              <mat-error>O e-mail é obrigatório.</mat-error>
+            }
+            @if (email?.hasError('email')) {
+              <mat-error>Informe um e-mail válido.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>Telefone</mat-label>
+            <input
+              matInput
+              formControlName="telefone"
+              placeholder="(00) 00000-0000"
+              mask="(00) 00000-0000"
+              [dropSpecialCharacters]="false"
+            />
+            @if (telefone?.hasError('required')) {
+              <mat-error>O telefone é obrigatório.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>Tipo</mat-label>
+            <mat-select formControlName="tipo">
+              @for (tipoCliente of tipoClienteEnum; track $index) {
+                <mat-option [value]="tipoCliente">{{ tipoCliente }}</mat-option>
+              }
+            </mat-select>
+            @if (tipo?.hasError('required')) {
+              <mat-error>O tipo é obrigatório.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>Documento</mat-label>
+            <input
+              matInput
+              formControlName="numeroDocumento"
+              [mask]="tipo?.value === 'Cpf' ? '000.000.000-00' : '00.000.000/0000-00'"
+              placeholder="CPF/CNPJ"
+              [dropSpecialCharacters]="false"
+            />
+            @if (numeroDocumento?.hasError('required')) {
+              <mat-error>O documento é obrigatório.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>Estado</mat-label>
+            <input matInput formControlName="estado" placeholder="Ex: RS / Rio Grande do Sul" />
+            @if (estado?.hasError('required')) {
+              <mat-error>O estado é obrigatório.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>Cidade</mat-label>
+            <input matInput formControlName="cidade" placeholder="Ex: Porto Alegre" />
+            @if (cidade?.hasError('required')) {
+              <mat-error>A cidade é obrigatória.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>Bairro</mat-label>
+            <input matInput formControlName="bairro" placeholder="Ex: Centro" />
+            @if (bairro?.hasError('required')) {
+              <mat-error>O bairro é obrigatório.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>Rua</mat-label>
+            <input matInput formControlName="rua" placeholder="Ex: Av. Brasil" />
+            @if (rua?.hasError('required')) {
+              <mat-error>A rua é obrigatória.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>Número</mat-label>
+            <input matInput formControlName="numero" placeholder="Ex: 123" />
+            @if (numero?.hasError('required')) {
+              <mat-error>O número é obrigatório.</mat-error>
+            }
+          </mat-form-field>
+        </mat-card-content>
+
+        <mat-card-actions align="end" class="flex items-center justify-end gap-3 pt-4 px-4 pb-2">
+          <a mat-stroked-button routerLink="/clientes" class="px-4">Voltar</a>
+          <button type="submit" [disabled]="clienteForm.invalid" mat-flat-button class="px-6">
+            <mat-icon class="!text-base mr-1">check</mat-icon>
+            Concluir
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+  </div>
+</section>

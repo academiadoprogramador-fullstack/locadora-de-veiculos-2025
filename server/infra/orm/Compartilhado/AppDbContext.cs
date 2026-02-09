@@ -1,5 +1,6 @@
 ﻿using LocadoraDeVeiculos.Dominio.ModuloAutenticacao;
 using LocadoraDeVeiculos.Dominio.ModuloCliente;
+using LocadoraDeVeiculos.Dominio.ModuloCondutor;
 using LocadoraDeVeiculos.Dominio.ModuloFuncionario;
 using LocadoraDeVeiculos.Dominio.ModuloGrupoVeiculos;
 using LocadoraDeVeiculos.Dominio.ModuloPlanoCobranca;
@@ -20,6 +21,7 @@ public class AppDbContext(
     public DbSet<PlanoCobranca> PlanosCobranca { get; set; }
     public DbSet<Veiculo> Veiculos { get; set; }
     public DbSet<Cliente> Clientes { get; set; }
+    public DbSet<Condutor> Condutores { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -38,8 +40,10 @@ public class AppDbContext(
             modelBuilder.Entity<Veiculo>()
                 .HasQueryFilter(f => f.EmpresaId == tenantProvider.EmpresaId.GetValueOrDefault() && !f.Excluido);
 
-
             modelBuilder.Entity<Cliente>()
+                .HasQueryFilter(f => !f.Excluido && f.EmpresaId == tenantProvider.EmpresaId.GetValueOrDefault());
+
+            modelBuilder.Entity<Condutor>()
                 .HasQueryFilter(f => !f.Excluido && f.EmpresaId == tenantProvider.EmpresaId.GetValueOrDefault());
         }
 

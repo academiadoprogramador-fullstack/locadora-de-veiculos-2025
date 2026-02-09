@@ -1,4 +1,5 @@
 ﻿using LocadoraDeVeiculos.Dominio.Compartilhado;
+using LocadoraDeVeiculos.Dominio.ModuloCondutor;
 
 namespace LocadoraDeVeiculos.Dominio.ModuloCliente;
 
@@ -16,6 +17,7 @@ public class Cliente : EntidadeBase<Cliente>
     public string Bairro { get; set; }
     public string Rua { get; set; }
     public string Numero { get; set; }
+    public List<Condutor> Condutores { get; set; } = [];
 
     public Cliente(
         Guid empresaId,

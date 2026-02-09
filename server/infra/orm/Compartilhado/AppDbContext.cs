@@ -4,6 +4,7 @@ using LocadoraDeVeiculos.Dominio.ModuloCondutor;
 using LocadoraDeVeiculos.Dominio.ModuloFuncionario;
 using LocadoraDeVeiculos.Dominio.ModuloGrupoVeiculos;
 using LocadoraDeVeiculos.Dominio.ModuloPlanoCobranca;
+using LocadoraDeVeiculos.Dominio.ModuloTaxa;
 using LocadoraDeVeiculos.Dominio.ModuloVeiculo;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +23,7 @@ public class AppDbContext(
     public DbSet<Veiculo> Veiculos { get; set; }
     public DbSet<Cliente> Clientes { get; set; }
     public DbSet<Condutor> Condutores { get; set; }
+    public DbSet<Taxa> Taxas { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -44,6 +46,9 @@ public class AppDbContext(
                 .HasQueryFilter(f => !f.Excluido && f.EmpresaId == tenantProvider.EmpresaId.GetValueOrDefault());
 
             modelBuilder.Entity<Condutor>()
+                .HasQueryFilter(f => !f.Excluido && f.EmpresaId == tenantProvider.EmpresaId.GetValueOrDefault());
+
+            modelBuilder.Entity<Taxa>()
                 .HasQueryFilter(f => !f.Excluido && f.EmpresaId == tenantProvider.EmpresaId.GetValueOrDefault());
         }
 

@@ -4,6 +4,7 @@ using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloCondutor;
 using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloFuncionario;
 using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloGrupoVeiculos;
 using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloPlanoCobranca;
+using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloTaxa;
 using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloVeiculo;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -24,6 +25,7 @@ public static class DependencyInjection
         services.AddScoped<RepositorioVeiculoEmOrm>();
         services.AddScoped<RepositorioClienteEmOrm>();
         services.AddScoped<RepositorioCondutorEmOrm>();
+        services.AddScoped<RepositorioTaxaEmOrm>();
 
         return services;
     }

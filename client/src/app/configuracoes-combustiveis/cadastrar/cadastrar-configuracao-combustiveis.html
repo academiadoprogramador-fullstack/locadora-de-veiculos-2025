@@ -1,0 +1,80 @@
+<section class="mx-auto max-w-4xl px-4 py-6">
+  <div>
+    <h2 class="text-2xl font-semibold">Cadastro de Configuração de Combustíveis</h2>
+    <hr class="my-4 border-muted/30" />
+
+    <mat-card class="p-4 rounded-2xl shadow-sm">
+      <form [formGroup]="configuracaoForm" (ngSubmit)="cadastrar()">
+        <mat-card-header>
+          <mat-card-title class="text-lg font-medium"> Informe os valores atuais </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <mat-form-field class="w-full">
+            <mat-label>Gasolina</mat-label>
+            <input matInput type="number" min="0" step="0.01" formControlName="valorGasolina" />
+            @if (valorGasolina?.hasError('required')) {
+              <mat-error>O valor da gasolina é obrigatório.</mat-error>
+            }
+            @if (valorGasolina?.hasError('min')) {
+              <mat-error>O valor deve ser maior que 0.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>Álcool</mat-label>
+            <input matInput type="number" min="0" step="0.01" formControlName="valorAlcool" />
+            @if (valorAlcool?.hasError('required')) {
+              <mat-error>O valor do álcool é obrigatório.</mat-error>
+            }
+            @if (valorAlcool?.hasError('min')) {
+              <mat-error>O valor deve ser maior que 0.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>Diesel</mat-label>
+            <input matInput type="number" min="0" step="0.01" formControlName="valorDiesel" />
+            @if (valorDiesel?.hasError('required')) {
+              <mat-error>O valor do diesel é obrigatório.</mat-error>
+            }
+            @if (valorDiesel?.hasError('min')) {
+              <mat-error>O valor deve ser maior que 0.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>Gás</mat-label>
+            <input matInput type="number" min="0" step="0.01" formControlName="valorGas" />
+            @if (valorGas?.hasError('required')) {
+              <mat-error>O valor do gás é obrigatório.</mat-error>
+            }
+            @if (valorGas?.hasError('min')) {
+              <mat-error>O valor deve ser maior que 0.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="w-full md:col-span-2">
+            <mat-label>Eletricidade</mat-label>
+            <input matInput type="number" min="0" step="0.01" formControlName="valorEletricidade" />
+            @if (valorEletricidade?.hasError('required')) {
+              <mat-error>O valor da eletricidade é obrigatório.</mat-error>
+            }
+            @if (valorEletricidade?.hasError('min')) {
+              <mat-error>O valor deve ser maior que 0.</mat-error>
+            }
+          </mat-form-field>
+        </mat-card-content>
+
+        <mat-card-actions align="end" class="flex items-center justify-end gap-3 pt-4 px-4 pb-2">
+          <a mat-stroked-button routerLink="/configuracoes-combustiveis" class="px-4"> Voltar </a>
+
+          <button type="submit" [disabled]="configuracaoForm.invalid" mat-flat-button class="px-6">
+            <mat-icon class="!text-base mr-1">check</mat-icon>
+            Concluir
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+  </div>
+</section>

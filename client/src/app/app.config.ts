@@ -80,6 +80,14 @@ const routes: Routes = [
     canMatch: [usuarioAutenticadoGuard],
   },
   {
+    path: 'configuracoes-combustiveis',
+    loadChildren: () =>
+      import('./configuracoes-combustiveis/configuracao-combustiveis.routes').then(
+        (r) => r.configuracaoCombustiveisRoutes,
+      ),
+    canMatch: [usuarioAutenticadoGuard],
+  },
+  {
     path: 'inicio',
     loadComponent: () => import('./inicio/inicio').then((c) => c.Inicio),
     canMatch: [usuarioAutenticadoGuard],

@@ -53,6 +53,7 @@ export class ShellComponent {
       icone: 'local_gas_station',
       link: '/configuracoes-combustiveis',
     },
+    { titulo: 'Aluguéis', icone: 'car_rental', link: '/alugueis' },
   ];
 
   @Input({ required: true }) usuarioAutenticado?: UsuarioAutenticadoModel;

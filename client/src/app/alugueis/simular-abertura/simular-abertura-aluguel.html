@@ -1,0 +1,107 @@
+<section class="mx-auto max-w-4xl px-4 py-6">
+  <div>
+    <h2 class="text-2xl font-semibold">Simulação de Abertura de Aluguel</h2>
+    <hr class="my-4 border-muted/30" />
+
+    <mat-card class="p-4 rounded-2xl shadow-sm">
+      <form [formGroup]="aluguelForm" (ngSubmit)="cadastrar()">
+        <mat-card-header>
+          <mat-card-title class="text-lg font-medium">Dados do Aluguel</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Condutor -->
+          <mat-form-field appearance="fill" class="w-full md:col-span-2">
+            <mat-label>Condutor</mat-label>
+            <mat-select formControlName="condutorId">
+              @for (condutor of condutores$ | async; track condutor.id) {
+                <mat-option [value]="condutor.id">{{ condutor.nome }}</mat-option>
+              }
+            </mat-select>
+            @if (condutorId?.hasError('required')) {
+              <mat-error>O condutor é obrigatório.</mat-error>
+            }
+          </mat-form-field>
+
+          <!-- Veículo -->
+          <mat-form-field appearance="fill" class="w-full md:col-span-2">
+            <mat-label>Veículo</mat-label>
+            <mat-select formControlName="veiculoId">
+              @for (veiculo of veiculos$ | async; track veiculo.id) {
+                <mat-option [value]="veiculo.id">
+                  {{ veiculo.marca }} {{ veiculo.modelo }} ({{ veiculo.ano }})
+                </mat-option>
+              }
+            </mat-select>
+            @if (veiculoId?.hasError('required')) {
+              <mat-error>O veículo é obrigatório.</mat-error>
+            }
+          </mat-form-field>
+
+          <!-- Tipo plano -->
+          <mat-form-field class="w-full">
+            <mat-label>Tipo de Plano</mat-label>
+            <mat-select formControlName="tipoPlano">
+              @for (tipo of tiposPlano; track $index) {
+                <mat-option [value]="tipo">{{ tipo }}</mat-option>
+              }
+            </mat-select>
+            @if (tipoPlano?.hasError('required')) {
+              <mat-error>O tipo de plano é obrigatório.</mat-error>
+            }
+          </mat-form-field>
+
+          <!-- Datas -->
+          <mat-form-field class="w-full">
+            <mat-label>Data de Início</mat-label>
+            <input
+              matInput
+              formControlName="inicioEmUtc"
+              mask="00/00/0000"
+              placeholder="dd/MM/aaaa"
+              [dropSpecialCharacters]="false"
+            />
+            @if (inicioEmUtc?.hasError('required')) {
+              <mat-error>A data de início é obrigatória.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>Devolução Prevista</mat-label>
+            <input
+              matInput
+              formControlName="devolucaoPrevistaEmUtc"
+              mask="00/00/0000"
+              placeholder="dd/MM/aaaa"
+              [dropSpecialCharacters]="false"
+            />
+            @if (devolucaoPrevistaEmUtc?.hasError('required')) {
+              <mat-error>A devolução prevista é obrigatória.</mat-error>
+            }
+          </mat-form-field>
+
+          <!-- Taxas (multi select) -->
+          <mat-form-field appearance="fill" class="w-full md:col-span-2">
+            <mat-label>Taxas</mat-label>
+            <mat-select formControlName="taxasSelecionadasIds" multiple>
+              @for (taxa of taxas$ | async; track taxa.id) {
+                <mat-option [value]="taxa.id">
+                  {{ taxa.nome }} — {{ taxa.valor | currency: 'BRL' }} ({{ taxa.tipoCobranca }})
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </mat-card-content>
+
+        <mat-card-actions align="end" class="flex items-center justify-end gap-3 pt-4 px-4 pb-2">
+          <a mat-stroked-button routerLink="/alugueis" class="px-4">Voltar</a>
+
+          <button type="submit" [disabled]="aluguelForm.invalid" mat-flat-button class="px-6">
+            <mat-icon class="!text-base mr-1">arrow_forward</mat-icon>
+            Simular e ir para Confirmação
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+  </div>
+</section>

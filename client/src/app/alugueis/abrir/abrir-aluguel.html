@@ -1,0 +1,61 @@
+@if (aluguelSimulado) {
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <h2 class="text-2xl font-semibold">Confirmar Abertura do Aluguel</h2>
+    <hr class="my-4 border-muted/30" />
+
+    <mat-card class="p-4 rounded-2xl shadow-sm">
+      <mat-card-header>
+        <mat-card-title class="text-lg font-medium">
+          Revisão do valor parcial (simulação)
+        </mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content class="mt-5 grid grid-cols-1 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div class="rounded-xl border border-muted/30 p-3">
+            <p class="text-sm text-muted-foreground">Dias cobrados</p>
+            <p class="text-lg font-semibold">{{ aluguelSimulado.quantidadeDias }}</p>
+          </div>
+
+          <div class="rounded-xl border border-muted/30 p-3">
+            <p class="text-sm text-muted-foreground">Valor do plano</p>
+            <p class="text-lg font-semibold">
+              {{ aluguelSimulado.valorPlano | currency: 'BRL' }}
+            </p>
+          </div>
+
+          <div class="rounded-xl border border-muted/30 p-3">
+            <p class="text-sm text-muted-foreground">Valor das taxas</p>
+            <p class="text-lg font-semibold">
+              {{ aluguelSimulado.valorTaxas | currency: 'BRL' }}
+            </p>
+          </div>
+
+          <div class="rounded-xl border border-muted/30 p-3">
+            <p class="text-sm text-muted-foreground">Total parcial</p>
+            <p class="text-lg font-semibold">
+              {{ aluguelSimulado.valorParcial | currency: 'BRL' }}
+            </p>
+          </div>
+        </div>
+
+        <div class="rounded-xl border border-muted/30 p-3 mt-4">
+          <p class="text-sm text-muted-foreground">Próximo passo</p>
+          <p class="text-sm">
+            Ao confirmar, o aluguel será <span class="font-medium">aberto</span> e o veículo ficará
+            indisponível.
+          </p>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions align="end" class="flex items-center justify-end gap-3 pt-4 px-4 pb-2">
+        <a mat-stroked-button routerLink="/alugueis" class="px-4">Voltar</a>
+
+        <button type="button" mat-flat-button class="px-6" (click)="confirmarAbertura()">
+          <mat-icon class="!text-base mr-1">check</mat-icon>
+          Confirmar Abertura
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </section>
+}

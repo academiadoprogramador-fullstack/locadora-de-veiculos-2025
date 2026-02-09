@@ -1,0 +1,107 @@
+<section class="mx-auto max-w-screen-xl px-4">
+  <div class="py-6">
+    <h2 class="text-2xl font-semibold">Listagem de Aluguéis</h2>
+
+    <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-6 gap-2">
+      <a
+        mat-flat-button
+        class="col-span-1 flex items-center justify-center gap-2 h-10"
+        routerLink="simular-abertura"
+      >
+        <mat-icon class="!text-base">add</mat-icon>
+        Simular Abertura
+      </a>
+    </div>
+
+    <hr class="my-6 border-muted/30" />
+
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+      @for (aluguel of alugueis$ | async; track aluguel.id) {
+        <mat-card class="rounded-2xl shadow-sm overflow-hidden h-full flex flex-col">
+          <div class="ms-4 mt-4">
+            <span
+              class="text-xs font-medium px-2 py-1 rounded-full"
+              [class]="corStatusFormatado(aluguel.status)"
+            >
+              {{ textoStatusFormatado(aluguel.status) }}
+            </span>
+          </div>
+
+          <mat-card-header class="px-4 pt-4 pb-2">
+            <mat-card-title class="text-lg font-medium flex items-center justify-between gap-3">
+              <span>Aluguel de {{ aluguel.condutorNome }}</span>
+            </mat-card-title>
+          </mat-card-header>
+
+          <mat-card-content class="px-4 flex-grow mt-3">
+            <div class="text-sm space-y-1">
+              <p>
+                <span class="font-medium">Início:</span>
+                {{ aluguel.inicioEmUtc | date: 'dd/MM/yyyy' }}
+              </p>
+
+              <p>
+                <span class="font-medium">Devolução Prevista:</span>
+                {{ aluguel.devolucaoPrevistaEmUtc | date: 'dd/MM/yyyy' }}
+              </p>
+
+              @if (aluguel.devolucaoEmUtc) {
+                <p>
+                  <span class="font-medium">Devolvido em:</span>
+                  {{ aluguel.devolucaoEmUtc | date: 'dd/MM/yyyy' }}
+                </p>
+              }
+
+              <p>
+                <span class="font-medium">Plano de Cobrança:</span>
+                {{ aluguel.tipoPlano }}
+              </p>
+
+              <p>
+                <span class="font-medium">Veículo:</span>
+                {{ aluguel.veiculoDescricao }}
+              </p>
+            </div>
+          </mat-card-content>
+
+          <mat-card-actions align="end" class="flex items-center justify-end gap-2 px-4 pb-4">
+            <a
+              [routerLink]="['detalhes', aluguel.id]"
+              mat-icon-button
+              aria-label="Detalhes"
+              title="Detalhes"
+            >
+              <mat-icon>visibility</mat-icon>
+            </a>
+            <a
+              [routerLink]="['concluir', aluguel.id]"
+              mat-icon-button
+              aria-label="Concluir"
+              title="Concluir"
+              [disabled]="aluguel.status !== 'Aberto'"
+            >
+              <mat-icon>check_circle</mat-icon>
+            </a>
+            <a
+              [routerLink]="['editar', aluguel.id]"
+              mat-icon-button
+              aria-label="Editar e ir para Abertura"
+              title="Editar e ir para Abertura"
+              [disabled]="aluguel.status !== 'Simulacao'"
+            >
+              <mat-icon>edit</mat-icon>
+            </a>
+            <a
+              [routerLink]="['excluir', aluguel.id]"
+              mat-icon-button
+              aria-label="Excluir"
+              title="Excluir"
+            >
+              <mat-icon>delete</mat-icon>
+            </a>
+          </mat-card-actions>
+        </mat-card>
+      }
+    </div>
+  </div>
+</section>

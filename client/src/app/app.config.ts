@@ -75,6 +75,11 @@ const routes: Routes = [
     canMatch: [usuarioAutenticadoGuard],
   },
   {
+    path: 'taxas',
+    loadChildren: () => import('./taxas/taxa.routes').then((r) => r.taxaRoutes),
+    canMatch: [usuarioAutenticadoGuard],
+  },
+  {
     path: 'inicio',
     loadComponent: () => import('./inicio/inicio').then((c) => c.Inicio),
     canMatch: [usuarioAutenticadoGuard],

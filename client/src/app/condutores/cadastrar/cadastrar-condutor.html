@@ -1,0 +1,125 @@
+<section class="mx-auto max-w-4xl px-4 py-6">
+  <div>
+    <h2 class="text-2xl font-semibold">Cadastro de Condutor</h2>
+    <hr class="my-4 border-muted/30" />
+
+    <mat-card class="p-4 rounded-2xl shadow-sm">
+      <form [formGroup]="condutorForm" (ngSubmit)="cadastrar()">
+        <mat-card-header>
+          <mat-card-title class="text-lg font-medium">Dados do Condutor</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <mat-form-field appearance="fill" class="col-span-1 md:col-span-2 w-full">
+            <mat-label>Cliente</mat-label>
+            <mat-select formControlName="clienteId">
+              @for (cliente of clientes$ | async; track cliente.id) {
+                <mat-option [value]="cliente.id">{{ cliente.nome }}</mat-option>
+              }
+            </mat-select>
+            @if (clienteId?.hasError('required')) {
+              <mat-error>O cliente é obrigatório.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="w-full md:col-span-2">
+            <mat-label>Cliente é o Condutor?</mat-label>
+            <mat-select formControlName="clienteCondutor">
+              <mat-option [value]="true">Sim</mat-option>
+              <mat-option [value]="false">Não</mat-option>
+            </mat-select>
+            @if (clienteCondutor?.hasError('required')) {
+              <mat-error>Este campo é obrigatório.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="w-full md:col-span-2">
+            <mat-label>Nome</mat-label>
+            <input matInput formControlName="nome" placeholder="Ex: Maria Oliveira" />
+            @if (nome?.hasError('required')) {
+              <mat-error>O nome é obrigatório.</mat-error>
+            }
+            @if (nome?.hasError('minlength')) {
+              <mat-error>Mínimo de 3 caracteres.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>E-mail</mat-label>
+            <input matInput formControlName="email" placeholder="Ex: maria@email.com" />
+            @if (email?.hasError('required')) {
+              <mat-error>O e-mail é obrigatório.</mat-error>
+            }
+            @if (email?.hasError('email')) {
+              <mat-error>Informe um e-mail válido.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>Telefone</mat-label>
+            <input
+              matInput
+              formControlName="telefone"
+              mask="(00) 00000-0000"
+              placeholder="(00) 00000-0000"
+              [dropSpecialCharacters]="false"
+            />
+            @if (telefone?.hasError('required')) {
+              <mat-error>O telefone é obrigatório.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>CPF</mat-label>
+            <input
+              matInput
+              formControlName="cpf"
+              mask="000.000.000-00"
+              placeholder="000.000.000-00"
+              [dropSpecialCharacters]="false"
+            />
+            @if (cpf?.hasError('required')) {
+              <mat-error>O CPF é obrigatório.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>CNH</mat-label>
+            <input
+              matInput
+              formControlName="cnh"
+              mask="00000000000"
+              placeholder="00000000000"
+              [dropSpecialCharacters]="false"
+            />
+            @if (cnh?.hasError('required')) {
+              <mat-error>A CNH é obrigatória.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="w-full md:col-span-2">
+            <mat-label>Validade da CNH</mat-label>
+            <input
+              matInput
+              formControlName="validadeCnh"
+              mask="00/00/0000"
+              placeholder="dd/MM/aaaa"
+              [dropSpecialCharacters]="false"
+            />
+            @if (validadeCnh?.hasError('required')) {
+              <mat-error>A validade da CNH é obrigatória.</mat-error>
+            }
+          </mat-form-field>
+        </mat-card-content>
+
+        <mat-card-actions align="end" class="flex items-center justify-end gap-3 pt-4 px-4 pb-2">
+          <a mat-stroked-button routerLink="/condutores" class="px-4">Voltar</a>
+          <button type="submit" [disabled]="condutorForm.invalid" mat-flat-button class="px-6">
+            <mat-icon class="!text-base mr-1">check</mat-icon>
+            Concluir
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+  </div>
+</section>

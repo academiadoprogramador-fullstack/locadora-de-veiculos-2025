@@ -1,0 +1,58 @@
+<section class="mx-auto max-w-screen-xl px-4">
+  <div class="py-6">
+    <h2 class="text-2xl font-semibold">Listagem de Condutores</h2>
+
+    <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-6 gap-2">
+      <a
+        mat-flat-button
+        class="col-span-1 flex items-center justify-center gap-2 h-10"
+        routerLink="cadastrar"
+      >
+        <mat-icon class="!text-base">add</mat-icon>
+        Cadastrar
+      </a>
+    </div>
+
+    <hr class="my-6 border-muted/30" />
+
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+      @for (condutor of condutores$ | async; track $index) {
+        <mat-card class="rounded-2xl shadow-sm overflow-hidden h-full flex flex-col">
+          <mat-card-header class="px-4 pt-4 pb-2">
+            <mat-card-title class="text-lg font-medium">
+              {{ condutor.nome }}
+            </mat-card-title>
+          </mat-card-header>
+
+          <mat-card-content class="px-4 min-h-[40px] flex-grow mt-2">
+            <p><span class="font-medium">Email:</span> {{ condutor.email }}</p>
+            <p><span class="font-medium">Telefone:</span> {{ condutor.telefone }}</p>
+            <p><span class="font-medium">CPF:</span> {{ condutor.cpf }}</p>
+            <p><span class="font-medium">CNH:</span> {{ condutor.cnh }}</p>
+            <p>
+              <span class="font-medium">Validade CNH:</span>
+              {{ condutor.validadeCnh | date: 'dd/MM/yyyy' }}
+            </p>
+            <p>
+              <span class="font-medium">Cliente ID:</span>
+              {{ condutor.clienteId }}
+            </p>
+            <p>
+              <span class="font-medium">Cliente é condutor:</span>
+              {{ condutor.clienteCondutor ? 'Sim' : 'Não' }}
+            </p>
+          </mat-card-content>
+
+          <mat-card-actions align="end" class="flex items-center justify-end gap-2 px-4 pb-4">
+            <a [routerLink]="['editar', condutor.id]" mat-icon-button aria-label="Editar">
+              <mat-icon>edit</mat-icon>
+            </a>
+            <a [routerLink]="['excluir', condutor.id]" mat-icon-button aria-label="Excluir">
+              <mat-icon>delete</mat-icon>
+            </a>
+          </mat-card-actions>
+        </mat-card>
+      }
+    </div>
+  </div>
+</section>

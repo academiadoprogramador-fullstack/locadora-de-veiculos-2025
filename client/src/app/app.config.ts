@@ -1,8 +1,12 @@
 import { map, take } from 'rxjs';
 
 import {
-    ApplicationConfig, DEFAULT_CURRENCY_CODE, inject, LOCALE_ID, provideBrowserGlobalErrorListeners,
-    provideZonelessChangeDetection
+  ApplicationConfig,
+  DEFAULT_CURRENCY_CODE,
+  inject,
+  LOCALE_ID,
+  provideBrowserGlobalErrorListeners,
+  provideZonelessChangeDetection,
 } from '@angular/core';
 import { CanActivateFn, provideRouter, Router, Routes } from '@angular/router';
 
@@ -63,6 +67,11 @@ const routes: Routes = [
   {
     path: 'clientes',
     loadChildren: () => import('./clientes/cliente.routes').then((r) => r.clienteRoutes),
+    canMatch: [usuarioAutenticadoGuard],
+  },
+  {
+    path: 'condutores',
+    loadChildren: () => import('./condutores/condutor.routes').then((r) => r.condutorRoutes),
     canMatch: [usuarioAutenticadoGuard],
   },
   {

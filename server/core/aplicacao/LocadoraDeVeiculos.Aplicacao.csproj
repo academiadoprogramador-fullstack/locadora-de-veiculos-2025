@@ -15,7 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\infra\jwt\LocadoraDeVeiculos.Infraestrutura.Jwt.csproj" />
     <ProjectReference Include="..\..\infra\orm\LocadoraDeVeiculos.Infraestrutura.Orm.csproj" />
-    <ProjectReference Include="..\..\LocadoraDeVeiculos.Infraestrutura.S3\LocadoraDeVeiculos.Infraestrutura.S3.csproj" />
+    <ProjectReference Include="..\..\infra\s3\LocadoraDeVeiculos.Infraestrutura.S3.csproj" />
     <ProjectReference Include="..\dominio\LocadoraDeVeiculos.Dominio.csproj" />
   </ItemGroup>
   
